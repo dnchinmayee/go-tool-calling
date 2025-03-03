@@ -10,6 +10,7 @@ import (
 	"strconv"
 
 	"tempfunctiontools/internal/database"
+	"tempfunctiontools/internal/functions"
 	"tempfunctiontools/models"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +25,7 @@ type ChatController struct {
 
 func NewChatController(ctx context.Context, agent *models.Agent, db *database.DbConfig) *ChatController {
 	agent.Db = db
-	models.RegisterTools(agent)
+	functions.RegisterTools(agent)
 
 	return &ChatController{
 		ctx:   ctx,
@@ -70,7 +71,7 @@ func (ctrl *ChatController) GetChat1(c *gin.Context, agent *models.Agent) {
 	log.Println(apiKey)
 	log.Println(chatBody)
 
-	chatBody.Tools = models.GetTools(ctrl.agent)
+	chatBody.Tools = functions.GetTools(ctrl.agent)
 
 	// chatBody.Messages = append([]models.Message{
 	// 	{

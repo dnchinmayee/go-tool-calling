@@ -5,12 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"tempfunctiontools/internal/functions"
 	"tempfunctiontools/models"
 )
 
 func (ctrl *ChatController) ProcessQuery(ctx context.Context, chatBody models.ChatBody) ([]models.Message, error) {
 	// add tool calls
-	chatBody.Tools = models.GetTools(ctrl.agent)
+	chatBody.Tools = functions.GetTools(ctrl.agent)
 
 	messages := chatBody.Messages
 
@@ -19,16 +20,19 @@ func (ctrl *ChatController) ProcessQuery(ctx context.Context, chatBody models.Ch
 		return nil, err
 	}
 
+	log.Printf("initialResponse: %+v", initialResponse)
+
 	// if choices is empty, return error
 	if len(initialResponse.Choices) == 0 {
 		log.Printf("no choices in initial response")
 		msg := models.Message{
 			Role:    models.ChatMessageRoleAssistant,
-			Content: "No response from LLM",
+			Content: "Error: No response from LLM",
 		}
 
 		messages = append(messages, msg)
-		return messages, fmt.Errorf("no choices in initial response")
+		return messages, nil
+		// return messages, fmt.Errorf("no choices in initial response")
 	}
 
 	initialMsg := models.Message{
