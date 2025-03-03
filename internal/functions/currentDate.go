@@ -34,25 +34,6 @@ type LocationData struct {
 	Timezone    string  `json:"timezone"`
 }
 
-/*
-{
-  "status": "success",
-  "country": "Canada",
-  "countryCode": "CA",
-  "region": "ON",
-  "regionName": "Ontario",
-  "city": "Mississauga",
-  "zip": "L5R",
-  "lat": 43.6098,
-  "lon": -79.6724,
-  "timezone": "America/Toronto",
-  "isp": "Rogers Communications Canada Inc.",
-  "org": "Rogers Cable Inc. RCHRD",
-  "as": "AS812 Rogers Communications Canada Inc.",
-  "query": "99.246.47.133"
-}
-*/
-
 // GetCurrentDateTime returns the current date and time
 func GetCurrentDateTimeLocation() DateTime {
 	log.Println("Getting current date and time")

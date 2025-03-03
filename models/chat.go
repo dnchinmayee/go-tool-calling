@@ -10,6 +10,11 @@ const (
 	ChatMessageRoleFunction  = "function"
 	ChatMessageRoleTool      = "tool"
 	ChatMessageRoleDeveloper = "developer"
+
+	Celsius    = "celsius"
+	Fahrenheit = "fahrenheit"
+
+	Success = "success"
 )
 
 type ChatBody struct {
@@ -75,18 +80,18 @@ type Tool struct {
 type Function struct {
 	Name        string      `json:"name"`
 	Description string      `json:"description"`
-	Parameters  *Parameters `json:"parameters"`
+	Parameters  *Parameters `json:"parameters,omitempty"`
 }
 
 type Parameters struct {
-	Type       string                `json:"type"`
-	Properties map[string]*Parameter `json:"properties"`
-	Required   []string              `json:"required"`
+	Type       string                `json:"type,omitempty"`
+	Properties map[string]*Parameter `json:"properties,omitempty"`
+	Required   []string              `json:"required,omitempty"`
 }
 
 type Parameter struct {
-	Type        string   `json:"type"`
-	Description string   `json:"description"`
+	Type        string   `json:"type,omitempty"`
+	Description string   `json:"description,omitempty"`
 	Enum        []string `json:"enum,omitempty"`
 }
 
