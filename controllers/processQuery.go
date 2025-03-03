@@ -52,7 +52,11 @@ func (ctrl *ChatController) ProcessQuery(ctx context.Context, chatBody models.Ch
 	for _, toolCall := range toolCalls {
 		result, err := ctrl.executeToolCall(ctx, toolCall)
 		if err != nil {
-			return nil, err
+			// return nil, err
+			result = models.Message{
+				Role:    models.ChatMessageRoleUser,
+				Content: "Error: " + err.Error(),
+			}
 		}
 		toolResults = append(toolResults, result)
 	}
